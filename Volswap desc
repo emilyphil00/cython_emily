@@ -1,0 +1,33 @@
+$PNL = \sum_{i \in B}{V_i \cdot (\sigma^{R}_i - \sigma^{I}_i) }$
+
+where $B$ is the set of all assets in the basket and $V_i$, $\sigma^{R}_i$, $\sigma^{I}_i$ correspond to the vega notional, realized vol, and implied vol (strike) of asset $i$.
+
+$ = (\sum_{i \in S}{V_{i}})(\sum_{i \in S}{w_i \cdot \sigma^{R}_i} - \sum_{i \in S}{w_i \cdot \sigma^{I}_i}) + (V_{x})(\sigma^{R}_{x} - \sigma^{I}_{x})$
+
+$ = (\sum_{i \in S}{V_{i}})(\sum_{i \in S}{w_i \cdot \sigma^{R}_i} - \sum_{i \in S}{w_i \cdot \sigma^{I}_i}) + (V_{x})(\sigma^{R}_{x}) - (V_{x})(\sigma^{I}_{x})$
+
+where $S$ is the subset of all single stocks in the basket and $x$ denotes the index.
+
+Define index notional for theta-neutral basket (where long disp / short corr) as -1 $\times$ total single stock notional $\times$ ratio of weighted average single stock vol to implied vol:
+
+$V_{x} = -1 \cdot (\sum_{i \in S}{V_{i}}) \cdot (\frac{\sum_{i \in S}{w_i \cdot \sigma^{I}_i}}{\sigma^{I}_{x}})$, $\ \ \ \ \ \ \ V_{i}>0 \ \forall i \in S$
+
+Substituting $V_{x}$:
+
+$\therefore PNL = (\sum_{i \in S}{V_{i}})(\sum_{i \in S}{w_i \cdot \sigma^{R}_i}) - (\sum_{i \in S}{V_{i}})(\sum_{i \in S}{w_i \cdot \sigma^{I}_i}) \\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \  - (\sum_{i \in S}{V_{i}}) \cdot (\frac{\sum_{i \in S}{w_i \cdot \sigma^{I}_i}}{\sigma^{I}_{x}}) \cdot (\sigma^{R}_{x}) + (\sum_{i \in S}{V_{i}}) \cdot (\frac{\sum_{i \in S}{w_i \cdot \sigma^{I}_i}}{\sigma^{I}_{x}}) \cdot (\sigma^{I}_{x})$
+
+$= (\sum_{i \in S}{V_{i}})(\sum_{i \in S}{w_i \cdot \sigma^{R}_i}) - (\sum_{i \in S}{V_{i}}) \cdot (\frac{\sum_{i \in S}{w_i \cdot \sigma^{I}_i}}{\sigma^{I}_{x}}) \cdot (\sigma^{R}_{x})$
+
+Define corr as the squared index vol divided by the squared weighted average single stock vol:
+
+$\sqrt{\rho^I} = \frac{\sigma^{I}_{x}}{\sum_{i \in S}{w_i \cdot \sigma^{I}_i}}$
+
+$\sqrt{\rho^R} = \frac{\sigma^{R}_{x}}{\sum_{i \in S}{w_i \cdot \sigma^{R}_i}}$
+
+Substituting $\sqrt{\rho^I}$ and $\sqrt{\rho^R}$:
+
+$\therefore PNL = (\sum_{i \in S}{V_{i}})(\sum_{i \in S}{w_i \cdot \sigma^{R}_i}) - (\sum_{i \in S}{V_{i}}) \cdot \frac{1}{\sqrt{\rho^I}} \cdot \sqrt{\rho^R} \cdot (\sum_{i \in S}{w_i \cdot \sigma^{R}_i})$
+
+$= (\sum_{i \in S}{V_{i}})(\sum_{i \in S}{w_i \cdot \sigma^{R}_i}) (1 - \frac{\sqrt{\rho^R}}{\sqrt{\rho^I}}) $
+
+In other words, PNL = (SS Vega)(Avg SS Realized Vol)(1 - (Sqrt. of Realized Corr)/(Sqrt. of Implied Corr)).
